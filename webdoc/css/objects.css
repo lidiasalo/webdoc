@@ -1,0 +1,133 @@
+/* Reset general */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: black;
+    overflow: hidden;
+    font-family: sans-serif;
+  }
+  
+  /* Contenedor principal del slider */
+  #slider {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+  
+  .slider-content {
+    display: flex;
+    height: 100vh;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .slide {
+    min-width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .slide img {
+    height: 100vh;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+  
+  /* Flechas de navegación */
+  .nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 4em;
+    color: white;
+    cursor: pointer;
+    z-index: 5;
+    user-select: none;
+    line-height: 1;
+    padding: 0 10px;
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  .next {
+    right: 10px;
+  }
+  
+  /* Botones arriba a la derecha */
+  .btn-top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+  }
+  
+  .btn-top-right button {
+    background: white;
+    color: black;
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9em;
+  }
+  
+  /* Botón cuadrado arriba a la izquierda */
+  .btn-menu {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .btn-menu img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Panel lateral derecho */
+  #side-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 20;
+    padding: 20px;
+  }
+  
+  #side-panel.active {
+    transform: translateX(0);
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+  }
+  

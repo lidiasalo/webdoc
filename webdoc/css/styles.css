@@ -1,0 +1,219 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    height: 100%;
+    color: white;
+    overflow: hidden; /* evita scroll */
+  }
+  
+  .intro {
+    background-image: url('../assets/images/background_index.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+  }
+  
+  .overlay {
+    background: rgba(46, 45, 45, 0.25);
+    padding: 40px 20px 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 4.5em;
+    border: 3px solid white;
+    display: inline-block;
+    padding: 10px 30px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+  
+  p {
+    max-width: 800px;
+    margin: 10px auto;
+    font-size: 0.8em;
+    line-height: 1em;
+  }
+  
+  .btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 5px 10px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #ddd;
+  }
+  
+  .nota {
+    font-style: italic;
+    font-size: 0.9em;
+    margin-top: 30px;
+  }
+  
+  /* FOOTER */
+  footer.footer-grid {
+    background: rgba(165, 165, 165, 0.85);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 40px;
+    font-size: 0.75em; /* más pequeño */
+    gap: 20px;
+  }
+  
+  .footer-grid .col {
+    flex: 1;
+    max-width: 50%;
+  }
+  
+  .footer-grid .col p {
+    margin: 0;               /* sin espacios verticales */
+    line-height: 1.2em;      /* casi sin interlineado */
+    font-size: 0.8em;        /* aún más pequeño si quieres */
+    padding-bottom: 5px;     /* pequeño espaciado entre líneas */
+  }
+  
+  .footer-grid a {
+    color: #ddd;
+    text-decoration: underline;
+  }
+  
+  .footer-grid a:hover {
+    color: white;
+  }
+
+  .col2 {
+    text-align: right; /* Alinea el texto a la derecha */
+  }
+
+  .transition-page {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Helvetica Neue', sans-serif;
+    overflow: hidden;
+  }
+  
+  .transition-container {
+    text-align: center;
+  }
+  
+  .quote {
+    font-size: 1.2em;
+    text-align: center;
+    font-style: italic;
+    max-width: 80%;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 0.5s;
+  }
+  
+  .arrow {
+    font-size: 3em;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 2s;
+    transition: transform 0.3s;
+  }
+  
+  .arrow:hover {
+    transform: scale(1.2);
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  #side-panel {
+    background: rgba(30, 30, 30, 0.85) !important;
+    color: white;
+  }
+
+  #panel-content > * {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+  
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  #panel-content h2 {
+    font-size: 2em;
+    margin-top: 1em;
+    text-transform: uppercase;
+  }
+  
+  #panel-content p {
+    text-align: justify;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 1em;
+  }
+  #panel-content {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+  }
+  
+  #side-panel.active #panel-content {
+    opacity: 1;
+  }
+  
+  #panel-content strong {
+    font-weight: bold;
+    color: #f2f2f2;
+  }
+  
+  #panel-content blockquote {
+    font-style: italic;
+    margin: 1em 0;
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    background: none;
+    border: none;
+    z-index: 30;
+    transition: transform 0.2s ease;
+    padding: 0;
+    line-height: 1;
+  }
+  
+  .close-btn:hover {
+    transform: scale(1.2);
+  }
+  
+  
+  

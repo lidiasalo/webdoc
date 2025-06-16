@@ -1,0 +1,53 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/objects.css" />
+</head>
+
+<body>
+    <div id="app">
+        <div id="slider">
+            <div class="btn-menu" onclick="navigateTo('menu')">
+                <img src="assets/images/menu.png" alt="Menu" />
+            </div>
+
+            <div class="btn-top-right">
+                <button onclick="openPanel('terapia')">TERAPIA DE JUEGO</button>
+                <button onclick="openPanel('testimonios')">TESTIMONIOS</button>
+            </div>
+
+            <div class="slider-content">
+                <div class="slide"><img src="assets/images/objects/objects1.jpg" alt="objeto 1" /></div>
+                <div class="slide"><img src="assets/images/objects/objects2.jpg" alt="objeto 2" /></div>
+                <div class="slide"><img src="assets/images/objects/objects3.jpg" alt="objeto 3" /></div>
+                <div class="slide"><img src="assets/images/objects/objects4.jpg" alt="objeto 4" /></div>
+                <div class="slide"><img src="assets/images/objects/objects5.jpg" alt="objeto 5" /></div>
+                <div class="slide"><img src="assets/images/objects/objects6.jpg" alt="objeto 6" /></div>
+                <div class="slide"><img src="assets/images/objects/objects7.jpg" alt="objeto 7" /></div>
+                <div class="slide"><img src="assets/images/objects/objects8.jpg" alt="objeto 8" /></div>
+                <div class="slide"><img src="assets/images/objects/objects9.jpg" alt="objeto 9" /></div>
+                <div class="slide"><img src="assets/images/objects/objects10.jpg" alt="objeto 10" /></div>
+                <div class="slide"><img src="assets/images/objects/objects11.jpg" alt="objeto 11" /></div>
+                <div class="slide"><img src="assets/images/objects/objects12.jpg" alt="objeto 12" /></div>
+                <div class="slide"><img src="assets/images/objects/objects13.jpg" alt="objeto 13" /></div>
+                <div class="slide"><img src="assets/images/objects/objects14.jpg" alt="objeto 14" /></div>
+                <div class="slide"><img src="assets/images/objects/objects15.jpg" alt="objeto 15" /></div>
+              </div>
+
+            <div class="nav prev">&#10094;</div>
+            <div class="nav next">&#10095;</div>
+        </div>
+
+        <!-- Panel derecho -->
+        <div id="side-panel" class="hidden">
+            <div class="close-btn" onclick="closePanel()">✕</div>
+            <div id="panel-content"></div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

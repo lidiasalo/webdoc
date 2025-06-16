@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Webdoc</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/transitionAudio.js"></script>
+  <script type="module" src="js/router.js"></script>
+  
+</head>
+
+<body>
+
+  <div id="scene-container"></div>
+  <script>
+    window.indexAudio = new Audio('assets/audio/index.mp3');
+  
+    indexAudio.play().catch(e => {
+      console.warn("Autoplay bloqueado por el navegador", e);
+    });
+  
+    window.stopIndexAudio = function () {
+      if (indexAudio) {
+        indexAudio.pause();
+        indexAudio.currentTime = 0;
+        console.log("⏹️ Index audio detenido");
+      }
+    };
+  </script>
+
+</body>
+</html>

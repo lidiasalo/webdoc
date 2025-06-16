@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/css/menu.css" />
+</head>
+<body>
+  <div class="menu-container">
+    <button class="bio-button" onclick="openPanel('biografia')">BIOGRAFÍA NURIA</button>
+
+    <div class="grid-menu">
+      <div class="item" onclick="navigateTo('transitions/transitionObjects')">
+        <img src="/assets/images/index/index1.jpg" alt="Escena 1">
+      </div>
+      <div class="item" onclick="navigateTo('transitions/transitionTherapySeries')">
+        <img src="/assets/images/index/index2.jpg" alt="Escena 2">
+      </div>
+      <div class="item fondo-negro"><!-- fondo negro vacío --></div>
+      <div class="item" onclick="navigateTo('transitions/transitionBoxes')">
+        <img src="/assets/images/index/index3.jpg" alt="Escena 3">
+      </div>
+      <div class="item" onclick="navigateTo('transitions/transitionTherapyIndividual')">
+        <img src="/assets/images/index/index4.jpg" alt="Escena 4">
+      </div>
+      <div class="item" onclick="navigateTo('transitions/transitionPhotos')">
+        <img src="/assets/images/index/index5.jpg" alt="Escena 5">
+      </div>
+    </div>
+  </div>
+  <div id="side-panel" class="hidden">
+    <div class="close-btn" onclick="closePanel()">✕</div>
+    <div id="panel-content"></div>
+  </div>
+  <script>
+    function navigateTo(escena) {
+      window.location.href = escena + '.html';
+    }
+  </script>
+</body>
+</html>
