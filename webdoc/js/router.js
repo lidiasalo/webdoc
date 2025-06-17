@@ -3,6 +3,7 @@
 let lastView = null;
 let autoScrollInterval;
 let sliderIsRunning = false;
+let resumeSliderAfterPanel = false;
 
 function navigateTo(view) {
   const nextView = view;
@@ -22,7 +23,7 @@ function navigateTo(view) {
   lastView = nextView;
 
   loadScene(nextView).then(() => {
-    if (nextView === 'objects') {
+    if (document.querySelector('.slider-content')) {
       import('./slider.js')
         .then(module => {
           module.initSlider({
@@ -40,11 +41,19 @@ function navigateTo(view) {
         })
         .catch(err => console.error("No se pudo cargar slider.js", err));
     }
+
+    const fnName = `onLoad_${nextView}`;
+    if (typeof window[fnName] === 'function') {
+      window[fnName]();
+    }
   });
 }
 
 function loadScene(view) {
-  const path = `components/${view}.html`;
+  console.log(`🔄 Cargando escena: ${view}`);
+  const extension = view === 'camera' ? 'php' : 'html';
+  const path = `components/${view}.${extension}`;
+
   return fetch(path)
     .then(res => {
       if (!res.ok) throw new Error(`No se encontró: ${path}`);
@@ -71,52 +80,42 @@ function openPanel(contentType) {
   const panel = document.getElementById('side-panel');
   const content = document.getElementById('panel-content');
 
+  resumeSliderAfterPanel = sliderIsRunning;
   if (autoScrollInterval) clearInterval(autoScrollInterval);
   sliderIsRunning = false;
 
   panel.classList.add('active');
   panel.classList.remove('hidden');
 
-  const panelContentMap = {
-    'biografia': `
-    <h2>NÚRIA GROS CARMONA</h2>
-    <p>Inició su camino profesional y vocacional formándose como educadora social después de años de voluntariado en diferentes asociaciones y ONG. Su experiencia como nieta de emigrantes andaluces que vivían en barrios donde la colaboración y la fraternidad eran una realidad, así como formar parte de una familia pequeña muy unida, marcó profundamente su manera de ver y entender el mundo. Estas experiencias tempranas le hicieron entender que la colaboración entre las personas, no el individualismo ni la competencia, es la herramienta para la transformación social. Esto hizo que escogiera dedicarse al ámbito social.</p>
-    <p>Una vez acabada la carrera decidió irse a vivir a Buenos Aires para formarse en alfabetización de adultas dentro de la educación popular (Paulo Freire) y colaborar en diferentes proyectos de alfabetización de adultas y acompañamiento a la infancia en barrios populares de la ciudad. Aprovechó aquellos años de intenso descubrimiento para estudiar en la Universidad de las Madres de Plaza de Mayo y formarse como pedagoga y guía Montessori. Empezó a sentir que la escuela es una gran herramienta de transformación social. A nivel personal, el cambio de ciudad y el alejamiento de su familia la llevó a iniciar un proceso terapéutico dentro de la terapia Gestalt que sigue actualmente.</p>
-    <p>Después de cuatro años en Buenos Aires volvió a Cataluña, donde empezó a trabajar dentro del ámbito de la educación libre, colaborando y trabajando en varios proyectos (La Xauxa Xica, La Mainada…), mientras iniciaba su formación en terapia Gestalt y Gestalt infantil, un camino que duró cuatro años y que supuso un antes y un después en su vida. En este periodo tuvo la suerte de formarse en Ecuador con Rebeca y Mauricio Wild, creadores del centro experimental Pestalozzi.</p>
-    <p>Durante una etapa que duró unos cuántos años se preparó profesionalmente en distintas disciplinas, todas relacionadas con el ámbito de la infancia y la familia: pedagogía sistémica (con Carles Parellada y Mercè Traveset), crianza ecológica y prevención psicosocial, terapia del juego y sandplay (Joaquín Blix) y constelaciones familiares individuales. Todo esto la llevó a dejar el ámbito de la educación libre y a entrar en el campo terapéutico como parte de CreaEspai, proyecto de acompañamiento a niños, niñas y familias, durante un periodo de 4 años.</p>
-    <p>Actualmente coordina su propio proyecto: <strong>DAMARA</strong>, desde donde acompaña a niños y niñas, familias y centros educativos.</p>
-    <p>Su especialidad es el acompañamiento a niños y niñas desde la terapia de juego y el acompañamiento sistémico a las familias. También asesora proyectos educativos que quieran acompañar emocionalmente y con más recursos a los niños y las niñas.</p>
-  `,
-    'terapia': `
-      <h2>LA TERAPIA DE JUEGO</h2>
-      <p>La <strong>terapia de juego</strong> es una terapia humanista no directiva...</p>
-      <p>Una de las líneas de la terapia de juego es la creada por <strong>Virginia Axline</strong>...</p>
-      <p>La terapia de juego se emplea para trabajar con niños y niñas que tienen dificultades emocionales...</p>
-      <p>En esta técnica terapéutica los niños y niñas <strong>expresan su mundo interno</strong>...</p>
-      <p>La terapia de juego genera un <strong>espacio seguro</strong>...</p>
-    `,
-    'testimonios': `
-      <h2>TESTIMONIOS</h2>
-      <blockquote>“Es importante acompañar al niño o a la niña en el juego agresivo...”</blockquote>
-      <blockquote>“El trabajo tiene que ser sistémico...”</blockquote>
-      <blockquote>“El dibujo es una herramienta muy potente...”</blockquote>
-      <p style="text-align: right; font-weight: bold;">Núria Gros Carmona</p>
-    `,
-    'default': `<h2>Panel</h2><p>Contenido no definido.</p>`
-  };
+  // Cargar el JSON externo
+  fetch('data/panelContent.json')
+    .then(response => response.json())
+    .then(data => {
+      const section = data[contentType] || { title: "Panel", content: ["Contenido no definido."] };
 
-  content.innerHTML = panelContentMap[contentType] || panelContentMap['default'];
+      const html = `
+        <h2>${section.title}</h2>
+        ${section.content.map(p => p).join('')}
+      `;
 
-  requestAnimationFrame(() => {
-    const children = content.children;
-    for (let i = 0; i < children.length; i++) {
-      const el = children[i];
-      el.style.opacity = 0;
-      el.style.animation = 'fadeUp 0.8s ease forwards';
-      el.style.animationDelay = `${i * 0.3}s`;
-    }
-  });
+      content.innerHTML = html;
+
+      requestAnimationFrame(() => {
+        const children = content.children;
+        for (let i = 0; i < children.length; i++) {
+          const el = children[i];
+          el.style.opacity = 0;
+          el.style.animation = 'fadeUp 0.8s ease forwards';
+          el.style.animationDelay = `${i * 0.3}s`;
+        }
+      });
+    })
+    .catch(err => {
+      console.error("Error cargando panelContent.json", err);
+      content.innerHTML = `<h2>Error</h2><p>No se pudo cargar el contenido.</p>`;
+    });
 }
+
 
 function closePanel() {
   const panel = document.getElementById('side-panel');
@@ -131,7 +130,10 @@ function closePanel() {
   setTimeout(() => panel.classList.add('hidden'), 300);
 
   if (typeof startAutoScroll === 'function' && sliderIsRunning) {
-    startAutoScroll();
+    if (typeof startAutoScroll === 'function' && resumeSliderAfterPanel) {
+      startAutoScroll();
+      resumeSliderAfterPanel = false;
+    }
   }
 }
 

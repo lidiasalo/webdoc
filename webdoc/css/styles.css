@@ -32,11 +32,11 @@ body, html {
     letter-spacing: 1px;
   }
   
-  p {
+ .webdoc {
     max-width: 800px;
     margin: 10px auto;
-    font-size: 0.8em;
-    line-height: 1em;
+    font-size: 1em;
+    line-height: 1.2em;
   }
   
   .btn {
@@ -207,13 +207,14 @@ body, html {
     border: none;
     z-index: 30;
     transition: transform 0.2s ease;
+    transform-origin: center center; /* <-- Aquí la corrección */
     padding: 0;
     line-height: 1;
   }
   
-  .close-btn:hover {
-    transform: scale(1.2);
-  }
-  
+ 
+.close-btn:hover {
+  opacity: 0.6;
+}
   
   

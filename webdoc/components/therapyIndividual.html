@@ -1,0 +1,52 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/objects.css" />
+</head>
+
+<body>
+    <div id="app">
+        <div id="slider">
+            <div class="btn-menu" onclick="navigateTo('menu')">
+                <img src="assets/images/menu.png" alt="Menu" />
+            </div>
+
+            <div class="btn-top-right">
+                <button onclick="openPanel('etapasdesarrollo')">ETAPAS DEL DESARROLLO</button>
+                <button onclick="openPanel('testimonioEtapasDesarrollo')">TESTIMONIOS</button>
+            </div>
+
+            <div class="slider-content">
+                <div class="slide"><img src="assets/images/individual/individual01.jpg" alt="foto 1" /></div>
+                <div class="slide"><img src="assets/images/individual/individual02.jpg" alt="foto 2" /></div>
+                <div class="slide"><img src="assets/images/individual/individual03.jpg" alt="foto 3" /></div>
+                <div class="slide"><img src="assets/images/individual/individual04.jpg" alt="foto 4" /></div>
+                <div class="slide"><img src="assets/images/individual/individual05.jpg" alt="foto 5" /></div>
+                <div class="slide"><img src="assets/images/individual/individual06.jpg" alt="foto 6" /></div>
+                <div class="slide"><img src="assets/images/individual/individual07.jpg" alt="foto 7" /></div>
+                <div class="slide"><img src="assets/images/individual/individual08.jpg" alt="foto 8" /></div>
+                <div class="slide"><img src="assets/images/individual/individual09.jpg" alt="foto 9" /></div>
+                <div class="slide"><img src="assets/images/individual/individual10.jpg" alt="foto 10" /></div>
+                <div class="slide"><img src="assets/images/individual/individual11.jpg" alt="foto 11" /></div>
+                <div class="slide"><img src="assets/images/individual/individual12.jpg" alt="foto 12" /></div>
+                <div class="slide"><img src="assets/images/individual/individual13.jpg" alt="foto 13" /></div>
+                <div class="slide"><img src="assets/images/individual/individual14.jpg" alt="foto 14" /></div>
+            </div>
+
+            <div class="nav prev">&#10094;</div>
+            <div class="nav next">&#10095;</div>
+        </div>
+
+        <!-- Panel derecho -->
+        <div id="side-panel" class="hidden">
+            <div class="close-btn" onclick="closePanel()">✕</div>
+            <div id="panel-content"></div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
