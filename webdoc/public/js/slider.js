@@ -59,15 +59,17 @@ export function initSlider(options = {}) {
     }
   }
 
-  function startAutoScroll() {
-    autoScrollInterval = setInterval(() => {
-      changeSlide(1);
-    }, 4000);
-    sliderIsRunning = true;
-    if (typeof options.onStart === 'function') {
-      options.onStart(autoScrollInterval);
-    }
+  function startAutoScroll(speed = 4000) {
+  autoScrollInterval = setInterval(() => {
+    changeSlide(1);
+  }, speed);
+  sliderIsRunning = true;
+  if (typeof options.onStart === 'function') {
+    options.onStart(autoScrollInterval);
   }
+}
+const view = options.view || '';
+const autoScrollSpeed = (view === 'camera') ? 1500 : 4000;
 
   function resetAutoScroll() {
     clearInterval(autoScrollInterval);
@@ -117,5 +119,5 @@ export function initSlider(options = {}) {
     resetAutoScroll();
   });
 
-  startAutoScroll();
+  startAutoScroll(autoScrollSpeed);
 }

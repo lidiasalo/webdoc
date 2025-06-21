@@ -55,27 +55,6 @@
       "<p></br></p>"
     ]
   },
-  "etapasDesarrollo": {
-    "title": "Etapas del desarrollo",
-    "content": [
-      "<p>Hay muchas psicólogas que han teorizado sobre las etapas del desarrollo infantil...</p>",
-      "<p>Las etapas del desarrollo son las distintas fases por las que pasa una persona...</p>",
-      "<p>En 1950, <strong>Erik Erikson</strong>, psicoanalista estadounidense...</p>",
-      "<p>En ella argumenta que, desde el nacimiento hasta la vejez...</p>",
-      "<p>De estas ocho etapas, cuatro pertenecen a la infancia.</p>",
-      "<ol><li><strong> Confianza frente a Desconfianza</strong></li></ol>",
-      "<p>Esta etapa va desde el nacimiento hasta los dieciocho meses de vida...</p>",
-      "<ol start=\"2\"><li><strong> Autonomía frente a Vergüenza y Duda</strong></li></ol>",
-      "<p>Esta etapa va desde los dieciocho meses hasta los tres años de vida...</p>",
-      "<ol start=\"3\"><li><strong> Iniciativa frente a Culpa</strong></li></ol>",
-      "<p>Esta etapa va desde los tres hasta los cinco años...</p>",
-      "<ol start=\"4\"><li><strong> Competencia frente a Inferioridad</strong></li></ol>",
-      "<p>Esta etapa va desde los seis o siete años hasta los doce...</p>",
-      "<p>Las etapas de desarrollo funcionan como una escalera...</p>",
-      "<p>Si en alguna de las etapas hay carencias en las necesidades básicas...</p>",
-      "<p>Por ejemplo si un niño o niña no genera un vínculo seguro...</p>"
-    ]
-  },
   "sandplay": {
     "title": "SANDPLAY (CAJAS DE ARENA)",
     "content": [
@@ -105,7 +84,7 @@
       "<p></br></p>"
     ]
   },
-  "EtapasDesarrollo": {
+  "etapasDesarrollo": {
     "title": "ETAPAS DEL DESARROLLO",
     "content": [
       "<p>Hay muchas psicólogas que han teorizado sobre las etapas del desarrollo infantil y han aportado conocimientos e información a la psicología del desarrollo.</p>",

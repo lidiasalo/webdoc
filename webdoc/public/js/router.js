@@ -1,9 +1,12 @@
-// router.js (tipo module)
+// router.js
+import { handleAudioPlayback, stopCurrentAudio } from './audioManager.js';
 
 let lastView = null;
 let autoScrollInterval;
 let sliderIsRunning = false;
 let resumeSliderAfterPanel = false;
+
+window.navigateTo = navigateTo;
 
 function navigateTo(view) {
   const nextView = view;
@@ -11,22 +14,24 @@ function navigateTo(view) {
 
   console.log(`🔁 Navegando de ${currentView} → ${nextView}`);
 
-  if (currentView === '/transitions/transitionIndex' && nextView !== '/transitions/transitionIndex' && typeof stopIndexAudio === "function") {
-    stopIndexAudio();
-  }
+  // ✅ Parar el audio actual
+  stopCurrentAudio();
 
-  if (typeof stopTransitionAudio === "function") {
-    stopTransitionAudio();
-  }
-
+  // Actualizar la ruta
   window.location.hash = nextView;
   lastView = nextView;
 
+  // Cargar la nueva vista
   loadScene(nextView).then(() => {
+    // Reproducción de audio asociada a la vista
+    handleAudioPlayback(nextView);
+
+    // Inicialización de slider si existe
     if (document.querySelector('.slider-content')) {
       import('./slider.js')
         .then(module => {
           module.initSlider({
+            view: nextView,
             onStart(interval) {
               autoScrollInterval = interval;
               sliderIsRunning = true;
@@ -39,9 +44,10 @@ function navigateTo(view) {
             }
           });
         })
-        .catch(err => console.error("No se pudo cargar slider.js", err));
+        .catch(err => console.error("❌ Error cargando slider.js", err));
     }
 
+    // Ejecutar función específica si está definida
     const fnName = `onLoad_${nextView}`;
     if (typeof window[fnName] === 'function') {
       window[fnName]();
@@ -72,9 +78,6 @@ function handleHashChange() {
   const view = location.hash ? location.hash.substring(1) : "webdoc";
   navigateTo(view);
 }
-
-window.addEventListener("hashchange", handleHashChange);
-window.addEventListener("DOMContentLoaded", handleHashChange);
 
 function openPanel(contentType) {
   const panel = document.getElementById('side-panel');
@@ -136,7 +139,10 @@ function closePanel() {
     }
   }
 }
-
+window.stopCurrentAudio = stopCurrentAudio;
 window.navigateTo = navigateTo;
 window.openPanel = openPanel;
 window.closePanel = closePanel;
+
+window.addEventListener("hashchange", handleHashChange);
+window.addEventListener("DOMContentLoaded", handleHashChange);

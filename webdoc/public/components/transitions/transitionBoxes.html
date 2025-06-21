@@ -1,6 +1,10 @@
+<script src="/js/transitionAudio.js"></script>
 <div class="transition-page">
     <p class="quote fade-in">Núria Gros Carmona: «No es tan importante la racionalización de lo que está sucediendo en
         esa caja de arena, ni entenderla. Lo que es sanador en sí es sacar lo que está dentro de nosotras y colocarlo
         externamente a nivel de imagen.»</p>
-    <div class="arrow fade-in" onclick="navigateTo('boxes')">➜</div>
+    <div class="arrow fade-in" onclick="navigateTo('boxes'); stopTransitionAudio();">➜</div>
+      <script>
+    console.log("Transition audio script loaded");
+  </script>
 </div>
