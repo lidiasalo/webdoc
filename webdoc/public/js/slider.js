@@ -23,8 +23,13 @@ export function initSlider(options = {}) {
   container.appendChild(firstClone);
 
   const slides = Array.from(container.querySelectorAll('.slide'));
-  container.style.width = `${slides.length * 100}vw`;
-  container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+container.style.width = `${slides.length * 100}vw`;
+container.style.transition = 'none';
+container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+
+void container.offsetWidth; // ⚠️ fuerza reflow
+
+container.style.transition = 'transform 0.5s ease-in-out';
 
   // Precarga
   container.querySelectorAll('img').forEach(img => {
@@ -59,65 +64,32 @@ export function initSlider(options = {}) {
     }
   }
 
-  function startAutoScroll(speed = 4000) {
-  autoScrollInterval = setInterval(() => {
-    changeSlide(1);
-  }, speed);
-  sliderIsRunning = true;
-  if (typeof options.onStart === 'function') {
-    options.onStart(autoScrollInterval);
-  }
-}
-const view = options.view || '';
-const autoScrollSpeed = (view === 'camera') ? 1500 : 4000;
-
-  function resetAutoScroll() {
-    clearInterval(autoScrollInterval);
-    startAutoScroll();
-  }
-  const images = container.querySelectorAll('.slide img');
-
-  images.forEach(img => {
-    img.addEventListener('mouseenter', () => {
-      if (autoScrollInterval) {
-        console.log("Pausando slider al pasar el ratón por la imagen");
-        clearInterval(autoScrollInterval);
-        autoScrollInterval = null;
-        sliderIsRunning = false;
-      }
-    });
-  
-    img.addEventListener('mouseleave', () => {
-      if (!autoScrollInterval) {
-        console.log("Reanudando slider al salir de la imagen");
-        startAutoScroll();
-      }
-    });
-  });
-  // Exponer startAutoScroll externamente
+  // Exponer startAutoScroll externamente (aunque ya no se usa auto scroll)
   if (typeof options.exposeStart === 'function') {
-    options.exposeStart(startAutoScroll);
+    options.exposeStart(() => {});
   }
 
-  // Avisar que se detiene desde fuera
   if (typeof options.onStop === 'function') {
     window.stopAutoScroll = () => {
-      clearInterval(autoScrollInterval);
-      sliderIsRunning = false;
       options.onStop();
     };
   }
 
-  // Controles
+  // Controles con botones
   document.querySelector('.prev')?.addEventListener('click', () => {
     changeSlide(-1);
-    resetAutoScroll();
   });
 
   document.querySelector('.next')?.addEventListener('click', () => {
     changeSlide(1);
-    resetAutoScroll();
   });
 
-  startAutoScroll(autoScrollSpeed);
-}
+  // Controles con teclado
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      changeSlide(-1);
+    } else if (e.key === 'ArrowRight') {
+      changeSlide(1);
+    }
+  });
+} 

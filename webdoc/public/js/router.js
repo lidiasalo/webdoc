@@ -90,7 +90,7 @@ function openPanel(contentType) {
   panel.classList.add('active');
   panel.classList.remove('hidden');
 
-  // Cargar el JSON externo
+
   fetch('data/panelContent.json')
     .then(response => response.json())
     .then(data => {
@@ -119,26 +119,24 @@ function openPanel(contentType) {
     });
 }
 
-
 function closePanel() {
   const panel = document.getElementById('side-panel');
   panel.classList.remove('active');
 
   const content = document.getElementById('panel-content');
   content.querySelectorAll('*').forEach(el => {
-    el.style.animation = 'none';
+    el.style.animation = 'fadeOut 0.4s ease forwards';
     el.style.opacity = '0';
   });
 
-  setTimeout(() => panel.classList.add('hidden'), 300);
-
-  if (typeof startAutoScroll === 'function' && sliderIsRunning) {
-    if (typeof startAutoScroll === 'function' && resumeSliderAfterPanel) {
+  if (typeof startAutoScroll === 'function' && resumeSliderAfterPanel) {
+    setTimeout(() => {
       startAutoScroll();
       resumeSliderAfterPanel = false;
-    }
+    }, 300);
   }
 }
+
 window.stopCurrentAudio = stopCurrentAudio;
 window.navigateTo = navigateTo;
 window.openPanel = openPanel;

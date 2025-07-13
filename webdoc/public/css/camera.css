@@ -1,3 +1,4 @@
+
 /* Reset general */
 body, html {
     margin: 0;
@@ -9,37 +10,70 @@ body, html {
     font-family: sans-serif;
   }
   
-  /* Contenedor principal del slider */
-  #slider {
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-  }
-  
-  .slider-content {
-    display: flex;
-    height: 100vh;
-    transition: transform 0.5s ease-in-out;
-  }
-  
-  .slide {
-    min-width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .slide img {
-    height: 100vh;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-    padding: 20px;
-  }
-  
-  /* Flechas de navegación */
+.camera-wrapper {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.camera-slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.camera-slider-content {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.camera-slide {
+  min-width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.camera-slide img {
+  height: 100vh;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  padding: 20px;
+}
+
+.camera-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3em;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+  padding: 0 20px;
+}
+
+.camera-prev {
+  left: 0;
+}
+
+.camera-next {
+  right: 0;
+}
+
+.camera-caption {
+  padding: 20px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 1em;
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+
+/* Flechas de navegación */
   .nav {
     position: absolute;
     top: 50%;
