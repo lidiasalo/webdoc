@@ -49,7 +49,7 @@ h1 {
 .webdoc {
   max-width: 800px;
   font-size: 1em;
-  margin: 20px auto;
+  margin: 25px auto;
   line-height: 1.5em;
 }
 
@@ -84,9 +84,9 @@ footer.footer-grid {
   background: rgba(165, 165, 165, 0.85);
   display: flex;
   justify-content: space-between;
-  padding: 20px 40px;
+  padding: 2px 40px;
   font-size: 1em;
-  gap: 20px;
+  gap: 25px;
 }
 
 .footer-grid .col {
@@ -265,12 +265,6 @@ footer.footer-grid {
 }
 
 /* ------------------------- MENU GRID ------------------------- */
-.menu-container {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  padding: 20px;
-}
 
 .bio-button {
   position: absolute;
@@ -285,32 +279,9 @@ footer.footer-grid {
   z-index: 10;
 }
 
-.grid-menu {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  width: 100%;
-  height: 100%;
-  gap: 15px;
-}
 
-.item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: black;
-  overflow: hidden;
-  cursor: pointer;
-}
 
-.item img {
-  max-width: 100%;
-  max-height: 100%;
-  height: auto;
-  width: auto;
-  object-fit: contain;
-  border: 3px solid white;
-}
+
 
 .fondo-negro {
   background-color: black;
