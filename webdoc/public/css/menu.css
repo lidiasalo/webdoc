@@ -156,6 +156,12 @@ footer.footer-grid {
 }
 
 /* ------------------------- PANEL LATERAL ------------------------- */
+#panel-content i,
+#panel-content em {
+  font-style: italic !important;
+}
+
+
 #side-panel {
   position: absolute;
   top: 0;
