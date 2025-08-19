@@ -5,6 +5,9 @@ let lastView = null;
 let autoScrollInterval;
 let sliderIsRunning = false;
 let resumeSliderAfterPanel = false;
+const FADE_MS = 600;   // duración de cada item al entrar/salir
+const STAG_MS = 300;   // separación entre items (como en tu open)
+
 
 window.navigateTo = navigateTo;
 
@@ -87,15 +90,22 @@ function openPanel(contentType) {
   if (autoScrollInterval) clearInterval(autoScrollInterval);
   sliderIsRunning = false;
 
-  panel.classList.add('active');
+   // 1) Mostrar panel (quitar display:none)
   panel.classList.remove('hidden');
+
+  // 2) Asegurar estado inicial off-screen y forzar reflow
+  panel.classList.remove('active');
+  void panel.offsetWidth; // reflow
+
+  // 3) Slide-in
+  panel.classList.add('active');
 
 
   fetch('data/panelContent.json')
     .then(response => response.json())
     .then(data => {
       const section = data[contentType] || { title: "Panel", content: ["Contenido no definido."] };
-
+      console.log(`🔍 Cargando contenido del panel: ${contentType}`, section);
       const html = `
         <h2>${section.title}</h2>
         ${section.content.map(p => p).join('')}
@@ -103,13 +113,16 @@ function openPanel(contentType) {
 
       content.innerHTML = html;
 
-      requestAnimationFrame(() => {
+     requestAnimationFrame(() => {
         const children = content.children;
         for (let i = 0; i < children.length; i++) {
           const el = children[i];
+          el.style.animation = 'none';
+          // reflow para resetear
+          void el.offsetHeight;
           el.style.opacity = 0;
-          el.style.animation = 'fadeUp 0.8s ease forwards';
-          el.style.animationDelay = `${i * 0.3}s`;
+          el.style.animation = `fadeUp ${FADE_MS}ms ease forwards`;
+          el.style.animationDelay = `${i * STAG_MS}ms`;
         }
       });
     })
@@ -120,21 +133,10 @@ function openPanel(contentType) {
 }
 
 function closePanel() {
-  const panel = document.getElementById('side-panel');
-  panel.classList.remove('active');
-
-  const content = document.getElementById('panel-content');
-  content.querySelectorAll('*').forEach(el => {
-    el.style.animation = 'fadeOut 0.4s ease forwards';
-    el.style.opacity = '0';
-  });
-
-  if (typeof startAutoScroll === 'function' && resumeSliderAfterPanel) {
-    setTimeout(() => {
-      startAutoScroll();
-      resumeSliderAfterPanel = false;
-    }, 300);
-  }
+  const p = document.getElementById('side-panel');
+  console.log('classes antes:', p.className, 'transition:', getComputedStyle(p).transitionProperty);
+  p.classList.remove('active');
+  console.log('transform tras quitar active:', getComputedStyle(p).transform);
 }
 
 window.stopCurrentAudio = stopCurrentAudio;
