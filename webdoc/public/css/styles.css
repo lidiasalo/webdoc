@@ -54,9 +54,8 @@ h1 {
 }
 
 .btn {
-  width: 200px;
-  text-align: center;
 
+  text-align: center;
   display: inline-block;
   margin-top: 20px;
   padding: 5px 10px;
@@ -84,7 +83,7 @@ footer.footer-grid {
   background: rgba(165, 165, 165, 0.85);
   display: flex;
   justify-content: space-between;
-  padding: 2px 40px;
+  padding: 10px 40px;
   font-size: 1em;
   gap: 25px;
 }
@@ -198,6 +197,17 @@ footer.footer-grid {
   animation: fadeUp 0.8s ease forwards;
 }
 
+
+#side-panel.closing {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: none; /* evita clicks durante el cierre */
+}
+#side-panel.closing #panel-content > * {
+  animation: fadeUp 0.4s ease reverse forwards;
+}
+
+
 @keyframes fadeUp {
     from {
     all: unset; /* o algo que reinicie todo */
@@ -213,6 +223,7 @@ footer.footer-grid {
 #panel-content h2 {
   font-size: 2em;
   margin-top: 1em;
+  margin-bottom: 0.5em;
   text-transform: uppercase;
 }
 

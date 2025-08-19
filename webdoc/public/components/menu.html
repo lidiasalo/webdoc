@@ -7,7 +7,9 @@
 </head>
 <body>
   <div class="menu-container">
-    <button class="bio-button" onclick="openPanel('biografia')">BIOGRAFÍA NURIA</button>
+    <div class="btn-top-right">
+                <button onclick="openPanel('biografia')">BIOGRAFÍA NURIA</button>
+            </div>
 
     <div class="grid-menu">
       <div class="item" onclick="navigateTo('transitions/transitionObjects')">
@@ -16,7 +18,7 @@
       <div class="item" onclick="navigateTo('transitions/transitionTherapySeries')">
         <img src="./assets/images/index/index2.jpg" alt="Escena 2">
       </div>
-      <div class="item fondo-negro"></div>
+      <div class=""></div>
       <div class="item" onclick="navigateTo('transitions/transitionBoxes')">
         <img src="./assets/images/index/index3.jpg" alt="Escena 3">
       </div>
@@ -28,10 +30,12 @@
       </div>
     </div>
   </div>
+
   <div id="side-panel">
     <div class="close-btn" onclick="closePanel()">✕</div>
     <div id="panel-content"></div>
   </div>
+
   <script>
     function navigateTo(escena) {
       window.location.href = escena + '.html';
