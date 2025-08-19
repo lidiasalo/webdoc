@@ -10,34 +10,73 @@ body, html {
   }
   
   /* Contenedor principal del slider */
-  #slider {
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-  }
-  
-  .slider-content {
-    display: flex;
-    height: 100vh;
-    transition: transform 0.5s ease-in-out;
-  }
-  
-  .slide {
-    min-width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .slide img {
-    height: 100vh;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-    padding: 20px;
-  }
+  #slider { overflow: hidden; }
+
+  #slider-camera {   
+    flex: 0 0 90%;
+  position: relative;
+  overflow: hidden;
+  background: black; 
+}
+
+.slider-content {
+  display: flex;
+  height: 100vh;            /* o la altura que uses */
+  will-change: transform;
+}
+
+.slider-content-camera {
+  display: flex;
+  height: 95vh;            /* o la altura que uses */
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.slide-camera {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 95%;
+}
+
+.slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;         /* o contain, según tu necesidad */
+}
+
+.slide-camera img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;         /* o contain, según tu necesidad */
+}
+
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+.camera-caption {
+  flex: 0 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  background: #000;      /* fondo para contraste */
+  color: #fff;
+  font-size: clamp(12px, 2vw, 14px);
+  text-align: center;
+  line-height: 1.4;
+}
   
   /* Flechas de navegación */
   .nav {

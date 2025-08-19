@@ -4,8 +4,8 @@ let sliderIsRunning = false;
 export function initSlider(options = {}) {
   let currentSlide = 1;
 
-  const container = document.querySelector('.slider-content');
-  const originalSlides = Array.from(document.querySelectorAll('.slide'));
+  const container = document.querySelector('.slider-content-camera');
+  const originalSlides = Array.from(document.querySelectorAll('.slide-camera'));
   if (!container || originalSlides.length === 0) {
     console.warn("Slider no inicializado: faltan elementos.");
     return;

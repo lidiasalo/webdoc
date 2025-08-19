@@ -50,6 +50,27 @@ function navigateTo(view) {
         .catch(err => console.error("❌ Error cargando slider.js", err));
     }
 
+    if (document.querySelector('.slider-content-camera')) {
+      import('./sliderCamera.js')
+        .then(module => {
+          module.initSlider({
+            view: nextView,
+            onStart(interval) {
+              autoScrollInterval = interval;
+              sliderIsRunning = true;
+            },
+            onStop() {
+              sliderIsRunning = false;
+            },
+            exposeStart(fn) {
+              window.startAutoScroll = fn;
+            }
+          });
+        })
+        .catch(err => console.error("❌ Error cargando sliderCamera.js", err));
+    }
+
+
     // Ejecutar función específica si está definida
     const fnName = `onLoad_${nextView}`;
     if (typeof window[fnName] === 'function') {
