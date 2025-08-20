@@ -29,7 +29,7 @@ export function initSlider(options = {}) {
 
   const slides = Array.from(container.querySelectorAll('.slide'));
 
-  // Precarga simple (no bloqueante)
+  // Precarga simple
   slides.forEach(sl => {
     const img = sl.querySelector('img');
     if (img && img.src) { const i = new Image(); i.src = img.src; }
@@ -39,11 +39,11 @@ export function initSlider(options = {}) {
   container.style.transition = 'none';
   container.style.transform  = `translateX(-${currentSlide * 100}%)`;
 
-  // Asegurar que el navegador aplica el estado inicial antes de activar la transición
+  // Asegurar estado inicial y luego activar transición
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      container.style.transition = 'transform 0.5s ease-in-out';
-    });
+    // Forzamos reflow para consolidar la posición sin transición
+    void container.getBoundingClientRect();
+    container.style.transition = 'transform 0.5s ease-in-out';
   });
 
   function changeSlide(direction = 1) {
@@ -53,26 +53,35 @@ export function initSlider(options = {}) {
     currentSlide += direction;
     container.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-    container.addEventListener('transitionend', handleTransitionEnd, { once: true });
-  }
+    // Ojo: usa el propio container como target del evento
+    const onEnd = (e) => {
+      if (e.propertyName !== 'transform') return;
+      container.classList.remove('transitioning');
 
-  function handleTransitionEnd(e) {
-    if (e.propertyName !== 'transform') return;
-    container.classList.remove('transitioning');
+      // Si estamos en un clon, “teletransporte” sin animación + reflow
+      if (slides[currentSlide]?.dataset.clone === "first") {
+        currentSlide = 1;
+        container.style.transition = 'none';
+        container.style.transform  = `translateX(-${currentSlide * 100}%)`;
+        // Forzar reflow y reactivar transición
+        requestAnimationFrame(() => {
+          void container.getBoundingClientRect();
+          container.style.transition = 'transform 0.5s ease-in-out';
+        });
+      } else if (slides[currentSlide]?.dataset.clone === "last") {
+        currentSlide = slides.length - 2;
+        container.style.transition = 'none';
+        container.style.transform  = `translateX(-${currentSlide * 100}%)`;
+        requestAnimationFrame(() => {
+          void container.getBoundingClientRect();
+          container.style.transition = 'transform 0.5s ease-in-out';
+        });
+      }
 
-    // Saltos en clones sin animación
-    if (slides[currentSlide]?.dataset.clone === "first") {
-      currentSlide = 1;
-      container.style.transition = 'none';
-      container.style.transform  = `translateX(-${currentSlide * 100}%)`;
-      // reactivar transición en el próximo frame
-      requestAnimationFrame(() => { container.style.transition = 'transform 0.5s ease-in-out'; });
-    } else if (slides[currentSlide]?.dataset.clone === "last") {
-      currentSlide = slides.length - 2;
-      container.style.transition = 'none';
-      container.style.transform  = `translateX(-${currentSlide * 100}%)`;
-      requestAnimationFrame(() => { container.style.transition = 'transform 0.5s ease-in-out'; });
-    }
+      container.removeEventListener('transitionend', onEnd);
+    };
+
+    container.addEventListener('transitionend', onEnd);
   }
 
   // Botones
@@ -85,15 +94,17 @@ export function initSlider(options = {}) {
     if (e.key === 'ArrowRight') changeSlide(1);
   });
 
-  // (Opcional) re-colocar al hacer resize brusco
+  // Recolocar en resize sin animación visible
   window.addEventListener('resize', () => {
     const wasTransition = container.style.transition;
     container.style.transition = 'none';
     container.style.transform  = `translateX(-${currentSlide * 100}%)`;
-    requestAnimationFrame(() => { container.style.transition = wasTransition || 'transform 0.5s ease-in-out'; });
+    requestAnimationFrame(() => {
+      void container.getBoundingClientRect();
+      container.style.transition = wasTransition || 'transform 0.5s ease-in-out';
+    });
   });
 
-  // Exponer callbacks que ya usabas
   if (typeof options.exposeStart === 'function') options.exposeStart(() => {});
   if (typeof options.onStop === 'function') {
     window.stopAutoScroll = () => { options.onStop(); };
