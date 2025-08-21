@@ -13,10 +13,7 @@ body, html {
   #slider { overflow: hidden; }
 
   #slider-camera {   
-    flex: 0 0 90%;
-  position: relative;
   overflow: hidden;
-  background: black; 
 }
 
 .slider-content {
@@ -27,7 +24,7 @@ body, html {
 
 .slider-content-camera {
   display: flex;
-  height: 95vh;            /* o la altura que uses */
+  height: 100vh;            /* o la altura que uses */
   will-change: transform;
 }
 
@@ -40,7 +37,7 @@ body, html {
 .slide-camera {
   flex: 0 0 100%;
   width: 100%;
-  height: 95%;
+  height: 100%;
 }
 
 .slide img {

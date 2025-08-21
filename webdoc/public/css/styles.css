@@ -47,8 +47,8 @@ h1 {
 }
 
 .webdoc {
-  max-width: 800px;
-  font-size: 1em;
+  max-width: 70%;
+  font-size: 1.2em;
   margin: 25px auto;
   line-height: 1.5em;
 }
@@ -56,12 +56,12 @@ h1 {
 .btn {
   text-align: center;
   display: inline-block;
-  margin-top: 20px;
+  margin: 25px auto;
   padding: 5px 10px;
   background-color: white;
   color: black;
   font-weight: bold;
-  font-size: 2em;
+  font-size: 2.3em;
   text-decoration: none;
   transition: 0.3s;
   word-wrap: break-word;
@@ -73,8 +73,8 @@ h1 {
 
 .nota {
   font-style: italic;
-  font-size: 0.9em;
-  margin-top: 30px;
+  font-size: 1em;
+  margin: 25px auto;
 }
 
 /* ------------------------- FOOTER ------------------------- */

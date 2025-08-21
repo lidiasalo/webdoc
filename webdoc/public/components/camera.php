@@ -31,14 +31,6 @@
       <div class="nav prev">&#10094;</div>
       <div class="nav next">&#10095;</div>
 
-    </div>
-          <div class="camera-caption">
-        <p>
-          Durante el reportaje dejamos una cámara compacta en Damara para que les niñes pudieran usarla durante las sesiones como un elemento de juego más. Estas son las fotografías realizadas por uno de los niños.
-        </p>
-      </div>
-
-    
 
     <div id="side-panel" class="hidden">
       <div class="close-btn" onclick="closePanel()">✕</div>
