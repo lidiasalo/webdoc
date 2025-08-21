@@ -106,7 +106,7 @@ body {
 
 /* ------------------------- MENU GRID ------------------------- */
 :root {
-  --aspect: 1.91;                 /* ancho / alto */
+  --aspect: calc(3/2);                 /* ancho / alto */
   --gap: clamp(8px, 2vmin, 20px); /* separación entre celdas */
   --pad: clamp(8px, 2vmin, 20px); /* padding del contenedor */
 }
