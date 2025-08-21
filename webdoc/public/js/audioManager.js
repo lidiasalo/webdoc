@@ -1,41 +1,62 @@
 let currentAudio = null;
 let userInteracted = false;
 
-// Detectar primera interacción
+// Detectar primera interacción del usuario
 window.addEventListener('click', () => {
   userInteracted = true;
-  console.log("✅ Usuario ha interactuado. Se permite reproducir audio.");
 }, { once: true });
 
+/**
+ * Detiene el audio actual y reinicia su posición
+ */
 export function stopCurrentAudio() {
   if (currentAudio) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
-    console.log("⏹️ Audio detenido");
   }
 }
 
+/**
+ * Devuelve true si el usuario autorizó y ya interactuó con la página
+ */
+function isAudioAllowed() {
+  return localStorage.getItem('audioAutorizado') === '1' && userInteracted;
+}
+
+/**
+ * Mapa de vistas a sus rutas de audio
+ */
+const audioRoutes = {
+  menu: "assets/audio/index.mp3",
+  objects: "assets/audio/bloques1.mp3",
+  therapySeries: "assets/audio/bloques2.mp3",
+  boxes: "assets/audio/bloques3.mp3",
+  therapyIndividual: "assets/audio/bloques4.mp3",
+  camera: "assets/audio/bloques5.mp3"
+};
+
+/**
+ * Obtiene la ruta del audio según la vista
+ */
+function getAudioPath(viewName) {
+  if (viewName.startsWith("transitions/")) {
+    const name = viewName.split("/").pop();
+    return `assets/audio/transitions/${name}.mp3`;
+  }
+  return audioRoutes[viewName] || null;
+}
+
+/**
+ * Maneja la reproducción de audio de acuerdo a la vista
+ */
 export function handleAudioPlayback(viewName) {
-  const autorizado = localStorage.getItem('audioAutorizado') === '1';
-  if (!autorizado || !userInteracted) {
-    console.warn("🔇 Audio bloqueado: sin autorización o sin interacción");
-    return;
-  }
+  if (!isAudioAllowed()) return;
 
-  let audioPath = null;
+  const audioPath = getAudioPath(viewName);
+  if (!audioPath) return;
 
-  if (viewName === 'webdoc') {
-    audioPath = 'assets/audio/index.mp3';
-  } else if (viewName.startsWith('transitions/')) {
-    const name = viewName.split('/').pop();
-    audioPath = `assets/audio/transitions/${name}.mp3`;
-  }
+  stopCurrentAudio();
 
-  if (audioPath) {
-    stopCurrentAudio();
-    currentAudio = new Audio(audioPath);
-    currentAudio.play()
-      .then(() => console.log(`▶️ Reproduciendo: ${audioPath}`))
-      .catch(err => console.warn("⚠️ Error reproduciendo:", err));
-  }
+  currentAudio = new Audio(audioPath);
+  currentAudio.play().catch(() => {});
 }
