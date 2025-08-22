@@ -46,23 +46,44 @@ async function initSliderIf(selector, modulePath, nextView) {
   }
 }
 
-async function navigateTo(view) {
-  const nextView = view;
+/**
+ * Navega a una vista de la SPA sin cambiar la URL visible.
+ * @param {string} view - nombre de la vista (ej. 'webdoc', 'menu', 'transitions/transitionIndex')
+ * @param {object} [opts]
+ * @param {boolean} [opts.addToHistory=true] - si true hace pushState, si false replaceState (no añade entrada)
+ */
+async function navigateTo(view, opts = {}) {
+  const { addToHistory = true } = opts;
+  const nextView = view || 'webdoc';
   const currentView = lastView || 'webdoc';
 
-  stopCurrentAudio();
+  // Evita trabajo si ya estás en la misma vista
+  if (currentView === nextView && lastView !== null) return;
 
-  // ✅ mantenemos siempre la URL limpia (solo "/")
-  history.replaceState({ view: nextView }, "", "/");
+  // Parar audio/auto-scroll
+  stopCurrentAudio();
+  clearAutoScroll();
+
+  // Mantener URL limpia (solo "/"), pero guardar estado para atrás/adelante
+  const state = { view: nextView };
+  if (addToHistory) {
+    history.pushState(state, "", "/");
+  } else {
+    history.replaceState(state, "", "/");
+  }
   lastView = nextView;
 
+  // Cargar escena
   await loadScene(nextView);
 
+  // Audio de la vista
   handleAudioPlayback(nextView);
 
+  // Inicializar sliders si corresponde
   await initSliderIf('.slider-content', './slider.js', nextView);
   await initSliderIf('.slider-content-camera', './sliderCamera.js', nextView);
 
+  // Hook opcional por vista: window.onLoad_<vista>()
   const fnName = `onLoad_${nextView}`;
   if (typeof window[fnName] === 'function') {
     try { window[fnName](); } catch (_) { /* silencioso */ }
@@ -74,7 +95,7 @@ async function loadScene(view) {
   const path = `components/${view}.${extension}`;
 
   try {
-    const res = await fetch(path);
+    const res = await fetch(path, { cache: "no-store" });
     if (!res.ok) throw new Error();
     const html = await res.text();
     document.getElementById('scene-container').innerHTML = html;
@@ -84,9 +105,21 @@ async function loadScene(view) {
 }
 
 function handleStart() {
-  const initialView = lastView || 'webdoc';
-  navigateTo(initialView);
+  // Si el usuario llega con hash antiguo (#algo), límpialo
+  if (location.hash) {
+    history.replaceState(null, "", location.pathname + location.search);
+  }
+
+  // Estado inicial: si hay state previo úsalo, si no 'webdoc'
+  const initialState = history.state && history.state.view ? history.state : { view: 'webdoc' };
+  navigateTo(initialState.view, { addToHistory: false }); // no duplicar historial al arrancar
 }
+
+// Atrás/adelante del navegador: recuperar la vista del state
+window.addEventListener('popstate', (event) => {
+  const view = event.state?.view || 'webdoc';
+  navigateTo(view, { addToHistory: false }); // no crear nueva entrada
+});
 
 function openPanel(contentType) {
   const panel = document.getElementById('side-panel');
@@ -137,5 +170,5 @@ function closePanel() {
   resumeSliderAfterPanel = false;
 }
 
-// ✅ solo lanzamos la SPA una vez cargado el DOM
+// Arranque
 window.addEventListener('DOMContentLoaded', handleStart);
