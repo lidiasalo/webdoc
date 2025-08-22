@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Webdoc</title>
+  <title>ACOMPAÑAR LA INFANCIA - WEBDOC - Aitor Rodero</title>
   <link rel="stylesheet" href="css/styles.css" />
   <script type="module" src="js/router.js"></script>
   
@@ -12,6 +12,40 @@
 <body>
 
   <div id="scene-container"></div>
+  <div id="app">...</div>
+
+<div id="mobile-block" aria-live="polite">
+  <div class="mbox">
+    <h1>ACOMPAÑAR LA INFANCIA</h1>
+
+    <p>
+      Este webdoc es una experiencia inmersiva y no lineal, optimizado para ser visualizado en la pantalla de un ordenador o una tablet.
+    </p>
+
+    <p>
+      Te animamos a que vuelvas a visitarlo desde alguno de estos dispositivos para explorar sobre el acompañamiento terapéutico a niñas y niños con dificultades emocionales en el proceso de elaborar emocionalmente las experiencias no cerradas y no integradas mediante el juego libre.
+    </p>
+    <p>Aitor Rodero </br> <a href="https://www.aitorrodero-fotografia.com" target="_blank">www.aitorrodero-fotografia.com</a></p>  
+      
+  </div>
+</div>
+
+<script>
+
+  const url = new URL(window.location.href);
+  const forced = url.searchParams.get("force") === "1";
+
+  function isMobileLike() {
+     return window.matchMedia("(max-width: 600px), (pointer: coarse) and (max-width: 600px)").matches;
+  }
+  function applyBlock() {
+    const blocked = !forced && isMobileLike();
+    document.documentElement.classList.toggle("blocked", blocked);
+  }
+  applyBlock();
+  addEventListener("resize", applyBlock);
+  addEventListener("orientationchange", applyBlock);
+</script>
 
 
 </body>

@@ -275,3 +275,46 @@ footer.footer-grid {
   background-color: black;
   cursor: default;
 }
+
+/* Estado normal */
+#app { display: block; }
+#mobile-block { display: none; }
+
+/* Cuando está bloqueado por móvil */
+.blocked #app { display: none; }
+.blocked #mobile-block {
+  background-image: url('../assets/images/background_index.jpg');
+  background-size: cover;
+  display: grid;
+  place-items: center;
+  position: fixed; inset: 0;
+  padding: 24px;
+  background: #0d0d0d 0.3;
+  color: #fff;
+  text-align: center;
+}
+
+#mobile-block .mbox {
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+#mobile-block h1 {
+  margin: 0 0 2rem;
+  font-size: 8vw;
+  border: 3px solid white;
+  display: inline-block;
+  width: 80%;
+  padding: 10px 30px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+#mobile-block a{
+  color: white;
+}
+
+#mobile-block p {
+  margin: 0 0 2rem;
+  font-size: clamp(16px, 2.8vw, 20px);
+}

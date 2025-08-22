@@ -44,14 +44,17 @@ body, html {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;         /* o contain, según tu necesidad */
+  object-fit: contain;  
+  padding-top: 1em;
+  padding-bottom: 1em;      
 }
-
 .slide-camera img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;         /* o contain, según tu necesidad */
+  object-fit: contain; 
+  padding-top: 1em;
+  padding-bottom: 1em; 
 }
 
 #app {
@@ -68,7 +71,7 @@ body, html {
   align-items: center;
   justify-content: center;
   padding: 0 15px;
-  background: #000;      /* fondo para contraste */
+  background: #000;  
   color: #fff;
   font-size: clamp(12px, 2vw, 14px);
   text-align: center;
