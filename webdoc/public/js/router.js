@@ -42,17 +42,18 @@ async function initSliderIf(selector, modulePath, nextView) {
     const module = await import(modulePath);
     attachSlider(module, nextView);
   } catch (_) {
-    //silencioso
+    // silencioso
   }
 }
 
 async function navigateTo(view) {
   const nextView = view;
-  const currentView = lastView || (location.hash ? location.hash.substring(1) : 'webdoc');
+  const currentView = lastView || 'webdoc';
 
   stopCurrentAudio();
 
-  window.location.hash = nextView;
+  // ✅ mantenemos siempre la URL limpia (solo "/")
+  history.replaceState({ view: nextView }, "", "/");
   lastView = nextView;
 
   await loadScene(nextView);
@@ -82,9 +83,9 @@ async function loadScene(view) {
   }
 }
 
-function handleHashChange() {
-  const view = location.hash ? location.hash.substring(1) : 'webdoc';
-  navigateTo(view);
+function handleStart() {
+  const initialView = lastView || 'webdoc';
+  navigateTo(initialView);
 }
 
 function openPanel(contentType) {
@@ -136,5 +137,5 @@ function closePanel() {
   resumeSliderAfterPanel = false;
 }
 
-window.addEventListener('hashchange', handleHashChange);
-window.addEventListener('DOMContentLoaded', handleHashChange);
+// ✅ solo lanzamos la SPA una vez cargado el DOM
+window.addEventListener('DOMContentLoaded', handleStart);
