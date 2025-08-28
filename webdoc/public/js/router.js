@@ -1,4 +1,3 @@
-// router.js
 import { handleAudioPlayback, stopCurrentAudio } from './audioManager.js';
 
 let lastView = null;
@@ -42,7 +41,7 @@ async function initSliderIf(selector, modulePath, nextView) {
     const module = await import(modulePath);
     attachSlider(module, nextView);
   } catch (_) {
-    // silencioso
+    //silencioso
   }
 }
 
@@ -57,14 +56,11 @@ async function navigateTo(view, opts = {}) {
   const nextView = view || 'webdoc';
   const currentView = lastView || 'webdoc';
 
-  // Evita trabajo si ya estás en la misma vista
   if (currentView === nextView && lastView !== null) return;
 
-  // Parar audio/auto-scroll
   stopCurrentAudio();
   clearAutoScroll();
 
-  // Mantener URL limpia (solo "/"), pero guardar estado para atrás/adelante
   const state = { view: nextView };
   if (addToHistory) {
     history.pushState(state, "", "/");
@@ -73,17 +69,13 @@ async function navigateTo(view, opts = {}) {
   }
   lastView = nextView;
 
-  // Cargar escena
   await loadScene(nextView);
 
-  // Audio de la vista
   handleAudioPlayback(nextView);
 
-  // Inicializar sliders si corresponde
   await initSliderIf('.slider-content', './slider.js', nextView);
   await initSliderIf('.slider-content-camera', './sliderCamera.js', nextView);
 
-  // Hook opcional por vista: window.onLoad_<vista>()
   const fnName = `onLoad_${nextView}`;
   if (typeof window[fnName] === 'function') {
     try { window[fnName](); } catch (_) { /* silencioso */ }
@@ -105,20 +97,18 @@ async function loadScene(view) {
 }
 
 function handleStart() {
-  // Si el usuario llega con hash antiguo (#algo), límpialo
   if (location.hash) {
     history.replaceState(null, "", location.pathname + location.search);
   }
 
-  // Estado inicial: si hay state previo úsalo, si no 'webdoc'
+
   const initialState = history.state && history.state.view ? history.state : { view: 'webdoc' };
-  navigateTo(initialState.view, { addToHistory: false }); // no duplicar historial al arrancar
+  navigateTo(initialState.view, { addToHistory: false });
 }
 
-// Atrás/adelante del navegador: recuperar la vista del state
 window.addEventListener('popstate', (event) => {
   const view = event.state?.view || 'webdoc';
-  navigateTo(view, { addToHistory: false }); // no crear nueva entrada
+  navigateTo(view, { addToHistory: false });
 });
 
 function openPanel(contentType) {
@@ -130,7 +120,7 @@ function openPanel(contentType) {
 
   panel.classList.remove('hidden');
   panel.classList.remove('active');
-  void panel.offsetWidth; // reflow
+  void panel.offsetWidth; //reflow
   panel.classList.add('active');
 
   fetch('data/panelContent.json')
@@ -148,7 +138,7 @@ function openPanel(contentType) {
         for (let i = 0; i < children.length; i++) {
           const el = children[i];
           el.style.animation = 'none';
-          void el.offsetHeight; // reset
+          void el.offsetHeight;
           el.style.opacity = 0;
           el.style.animation = `fadeUp ${FADE_MS}ms ease forwards`;
           el.style.animationDelay = `${i * STAG_MS}ms`;
@@ -170,5 +160,4 @@ function closePanel() {
   resumeSliderAfterPanel = false;
 }
 
-// Arranque
 window.addEventListener('DOMContentLoaded', handleStart);

@@ -5,7 +5,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   font-family: sans-serif;
@@ -158,7 +159,9 @@ footer.footer-grid {
 }
 
 @keyframes fadeIn {
-  to { opacity: 1; }
+  to {
+    opacity: 1;
+  }
 }
 
 /* ------------------------- PANEL LATERAL ------------------------- */
@@ -181,8 +184,10 @@ footer.footer-grid {
   z-index: 20;
   padding: 20px;
 
-  transform: translateX(100%);   /* fuera a la derecha */
-  pointer-events: none;          /* sin clicks cuando está fuera */
+  transform: translateX(100%);
+  /* fuera a la derecha */
+  pointer-events: none;
+  /* sin clicks cuando está fuera */
   transition: transform 0.4s ease;
   will-change: transform;
 }
@@ -193,15 +198,25 @@ footer.footer-grid {
 }
 
 /* Oculto del DOM para el estado inicial y tras cerrar */
-#side-panel.hidden { display: none; }
+#side-panel.hidden {
+  display: none;
+}
 
 /* Mantén tu fadeUp al abrir si quieres */
-#side-panel.active #panel-content > * {
+#side-panel.active #panel-content>* {
   animation: fadeUp 0.8s ease forwards;
 }
+
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 
@@ -277,17 +292,26 @@ footer.footer-grid {
 }
 
 /* Estado normal */
-#app { display: block; }
-#mobile-block { display: none; }
+#app {
+  display: block;
+}
+
+#mobile-block {
+  display: none;
+}
 
 /* Cuando está bloqueado por móvil */
-.blocked #app { display: none; }
+.blocked #app {
+  display: none;
+}
+
 .blocked #mobile-block {
   background-image: url('../assets/images/background_index.jpg');
   background-size: cover;
   display: grid;
   place-items: center;
-  position: fixed; inset: 0;
+  position: fixed;
+  inset: 0;
   padding: 24px;
   background: #0d0d0d 0.3;
   color: #fff;
@@ -310,7 +334,7 @@ footer.footer-grid {
   letter-spacing: 1px;
 }
 
-#mobile-block a{
+#mobile-block a {
   color: white;
 }
 

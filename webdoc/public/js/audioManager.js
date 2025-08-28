@@ -1,7 +1,6 @@
 let currentAudio = null;
 let userInteracted = false;
 
-// Detectar primera interacción del usuario
 window.addEventListener('click', () => {
   userInteracted = true;
 }, { once: true });
@@ -58,5 +57,5 @@ export function handleAudioPlayback(viewName) {
   stopCurrentAudio();
 
   currentAudio = new Audio(audioPath);
-  currentAudio.play().catch(() => {});
+  currentAudio.play().catch(() => { });
 }

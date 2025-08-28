@@ -14,8 +14,7 @@
       </div>
 
       <div class="btn-top-right">
-        <button onclick="openPanel('terapia')">TERAPIA DE JUEGO</button>
-        <button onclick="openPanel('testimoniosTerapia')">TESTIMONIOS</button>
+        <button onclick="openPanel('juegoPresimbolico')">JUEGO PRESIMBÓLICO</button>
       </div>
 
       <div class="slider-content-camera">
@@ -32,11 +31,11 @@
       <div class="nav next">&#10095;</div>
 
 
-    <div id="side-panel" class="hidden">
-      <div class="close-btn" onclick="closePanel()">✕</div>
-      <div id="panel-content"></div>
+      <div id="side-panel" class="hidden">
+        <div class="close-btn" onclick="closePanel()">✕</div>
+        <div id="panel-content"></div>
+      </div>
     </div>
-  </div>
 
 
 </body>

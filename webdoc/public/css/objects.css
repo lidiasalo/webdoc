@@ -1,30 +1,35 @@
 /* Reset general */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    background: black;
-    overflow: hidden;
-    font-family: sans-serif;
-  }
-  
-  /* Contenedor principal del slider */
-  #slider { overflow: hidden; }
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  overflow: hidden;
+  font-family: sans-serif;
+}
 
-  #slider-camera {   
+/* Contenedor principal del slider */
+#slider {
+  overflow: hidden;
+}
+
+#slider-camera {
   overflow: hidden;
 }
 
 .slider-content {
   display: flex;
-  height: 100vh;            /* o la altura que uses */
+  height: 100vh;
+  /* o la altura que uses */
   will-change: transform;
 }
 
 .slider-content-camera {
   display: flex;
-  height: 100vh;            /* o la altura que uses */
+  height: 100vh;
+  /* o la altura que uses */
   will-change: transform;
 }
 
@@ -44,17 +49,18 @@ body, html {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;  
+  object-fit: contain;
   padding-top: 1em;
-  padding-bottom: 1em;      
+  padding-bottom: 1em;
 }
+
 .slide-camera img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain; 
+  object-fit: contain;
   padding-top: 1em;
-  padding-bottom: 1em; 
+  padding-bottom: 1em;
 }
 
 #app {
@@ -71,96 +77,99 @@ body, html {
   align-items: center;
   justify-content: center;
   padding: 0 15px;
-  background: #000;  
+  background: #000;
   color: #fff;
   font-size: clamp(12px, 2vw, 14px);
   text-align: center;
   line-height: 1.4;
 }
-  
-  /* Flechas de navegación */
-  .nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 4em;
-    color: white;
-    cursor: pointer;
-    z-index: 5;
-    user-select: none;
-    line-height: 1;
-    padding: 0 10px;
-  }
-  
-  .prev {
-    left: 10px;
-  }
-  .next {
-    right: 10px;
-  }
-  
-  /* Botones arriba a la derecha */
-  .btn-top-right {
-      width: 200px;
-  text-align: center;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 10;
-    word-wrap: break-word;
-  }
-  
-  .btn-top-right button {
-    background: black;
-    color: white;
-    border-color: white;
-    border-style: solid;
-    border-width: 3px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 0.9em;
-  }
-  
-  /* Botón cuadrado arriba a la izquierda */
-  .btn-menu {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 60px;
-    height: 60px;
-    background: white;
-    cursor: pointer;
-    z-index: 10;
 
-  }
-  
-  .btn-menu img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease; /* suaviza la animación */
-  }
-
-  .btn-menu:hover img {
-  transform: scale(1.1); /* zoom al pasar el ratón */
+/* Flechas de navegación */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4em;
+  color: white;
+  cursor: pointer;
+  z-index: 5;
+  user-select: none;
+  line-height: 1;
+  padding: 0 10px;
 }
-  
 
-  
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    cursor: pointer;
-    font-size: 1.5em;
-  }
-  
+.prev {
+  left: 10px;
+}
 
-  .slider-caption {
+.next {
+  right: 10px;
+}
+
+/* Botones arriba a la derecha */
+.btn-top-right {
+  width: 200px;
+  text-align: center;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 10;
+  word-wrap: break-word;
+}
+
+.btn-top-right button {
+  background: black;
+  color: white;
+  border-color: white;
+  border-style: solid;
+  border-width: 3px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+/* Botón cuadrado arriba a la izquierda */
+.btn-menu {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  background: white;
+  cursor: pointer;
+  z-index: 10;
+
+}
+
+.btn-menu img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  /* suaviza la animación */
+}
+
+.btn-menu:hover img {
+  transform: scale(1.1);
+  /* zoom al pasar el ratón */
+}
+
+
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+
+.slider-caption {
   padding: 20px;
   background-color: black;
   color: white;
