@@ -193,7 +193,7 @@ body {
   background: #222;
   border: 5px solid white;
   overflow: hidden;
-
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;

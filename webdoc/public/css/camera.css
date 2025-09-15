@@ -10,17 +10,23 @@ html {
   font-family: sans-serif;
 }
 
-.camera-wrapper {
-  width: 100vw;
-  overflow-x: hidden;
-}
-
 /* Contenedor principal del slider */
 #slider {
   overflow: hidden;
 }
 
+#slider-camera {
+  overflow: hidden;
+}
+
 .slider-content {
+  display: flex;
+  height: 100vh;
+  /* o la altura que uses */
+  will-change: transform;
+}
+
+.slider-content-camera {
   display: flex;
   height: 100vh;
   /* o la altura que uses */
@@ -33,44 +39,50 @@ html {
   height: 100%;
 }
 
+.slide-camera {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+}
+
 .slide img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* o contain, según tu necesidad */
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
-.camera-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 3em;
-  color: white;
-  cursor: pointer;
-  z-index: 10;
-  user-select: none;
-  padding: 0 20px;
+.slide-camera img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
-.camera-prev {
-  left: 0;
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.camera-next {
-  right: 0;
-}
 
 .camera-caption {
-  padding: 20px;
-  background-color: black;
-  color: white;
+  flex: 0 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  background: #000;
+  color: #fff;
+  font-size: clamp(12px, 2vw, 14px);
   text-align: center;
-  font-size: 1em;
-  max-width: 900px;
-  margin: 40px auto;
+  line-height: 1.4;
 }
-
 
 /* Flechas de navegación */
 .nav {
@@ -130,6 +142,7 @@ html {
   background: white;
   cursor: pointer;
   z-index: 10;
+
 }
 
 .btn-menu img {
@@ -144,6 +157,8 @@ html {
   transform: scale(1.1);
   /* zoom al pasar el ratón */
 }
+
+
 
 .close-btn {
   position: absolute;
@@ -161,4 +176,8 @@ html {
   text-align: center;
   max-width: 900px;
   margin: 20px auto;
+}
+
+#side-panel em {
+  font-style: italic !important;
 }

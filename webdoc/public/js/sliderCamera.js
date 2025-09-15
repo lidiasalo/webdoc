@@ -14,20 +14,17 @@ export function initSlider(options = {}) {
   if (container.dataset.inited === '1') return;
   container.dataset.inited = '1';
 
-
   const firstClone = originalSlides[0].cloneNode(true);
   const lastClone = originalSlides[originalSlides.length - 1].cloneNode(true);
   firstClone.dataset.clone = "first";
   lastClone.dataset.clone = "last";
-
 
   container.innerHTML = '';
   container.appendChild(lastClone);
   originalSlides.forEach(s => container.appendChild(s));
   container.appendChild(firstClone);
 
-  const slides = Array.from(container.querySelectorAll('.slide'));
-
+  const slides = Array.from(container.querySelectorAll('.slide-camera'));
 
   slides.forEach(sl => {
     const img = sl.querySelector('img');
@@ -37,10 +34,10 @@ export function initSlider(options = {}) {
   container.style.transition = 'none';
   container.style.transform = `translateX(-${currentSlide * 100}%)`;
 
+
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      container.style.transition = 'transform 0.5s ease-in-out';
-    });
+    void container.getBoundingClientRect();
+    container.style.transition = 'transform 0.5s ease-in-out';
   });
 
   function changeSlide(direction = 1) {
@@ -50,31 +47,37 @@ export function initSlider(options = {}) {
     currentSlide += direction;
     container.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-    container.addEventListener('transitionend', handleTransitionEnd, { once: true });
+    const onEnd = (e) => {
+      if (e.propertyName !== 'transform') return;
+      container.classList.remove('transitioning');
+
+      if (slides[currentSlide]?.dataset.clone === "first") {
+        currentSlide = 1;
+        container.style.transition = 'none';
+        container.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+        requestAnimationFrame(() => {
+          void container.getBoundingClientRect();
+          container.style.transition = 'transform 0.5s ease-in-out';
+        });
+      } else if (slides[currentSlide]?.dataset.clone === "last") {
+        currentSlide = slides.length - 2;
+        container.style.transition = 'none';
+        container.style.transform = `translateX(-${currentSlide * 100}%)`;
+        requestAnimationFrame(() => {
+          void container.getBoundingClientRect();
+          container.style.transition = 'transform 0.5s ease-in-out';
+        });
+      }
+
+      container.removeEventListener('transitionend', onEnd);
+    };
+
+    container.addEventListener('transitionend', onEnd);
   }
-
-  function handleTransitionEnd(e) {
-    if (e.propertyName !== 'transform') return;
-    container.classList.remove('transitioning');
-
-    if (slides[currentSlide]?.dataset.clone === "first") {
-      currentSlide = 1;
-      container.style.transition = 'none';
-      container.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-      requestAnimationFrame(() => { container.style.transition = 'transform 0.5s ease-in-out'; });
-    } else if (slides[currentSlide]?.dataset.clone === "last") {
-      currentSlide = slides.length - 2;
-      container.style.transition = 'none';
-      container.style.transform = `translateX(-${currentSlide * 100}%)`;
-      requestAnimationFrame(() => { container.style.transition = 'transform 0.5s ease-in-out'; });
-    }
-  }
-
 
   document.querySelector('.prev')?.addEventListener('click', () => changeSlide(-1));
   document.querySelector('.next')?.addEventListener('click', () => changeSlide(1));
-
 
   window.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') changeSlide(-1);
@@ -85,7 +88,10 @@ export function initSlider(options = {}) {
     const wasTransition = container.style.transition;
     container.style.transition = 'none';
     container.style.transform = `translateX(-${currentSlide * 100}%)`;
-    requestAnimationFrame(() => { container.style.transition = wasTransition || 'transform 0.5s ease-in-out'; });
+    requestAnimationFrame(() => {
+      void container.getBoundingClientRect();
+      container.style.transition = wasTransition || 'transform 0.5s ease-in-out';
+    });
   });
 
   if (typeof options.exposeStart === 'function') options.exposeStart(() => { });
